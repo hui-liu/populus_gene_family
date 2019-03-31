@@ -1,4 +1,4 @@
-# species
+# (0) species used for gene family analysis
 |	Names	|	Species names	|	Version	|
 |	-------------	|	-------------	|	-------------	|
 |	amtri	|	amborella_trichopoda	|	v1.0	|
