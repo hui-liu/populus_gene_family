@@ -18,4 +18,14 @@ sed 's/href=/\n/g' index.html |grep "Psme"| sed 's/">/\t/;s/"//' | cut -f 1 | \
 awk '{print "wget -e robots=off -r -p -np -k https://treegenesdb.org"$1,"--no-check-certificate --wait 1"}'| grep -v "index" | sh
 
 mv treegenesdb.org/FTP/Genomes/Psme/v1.0/* .
+rm -r treegenesdb.org/
+rm index.html
+
+# pitae
+wget https://treegenesdb.org/FTP/Genomes/Pita/v2.01/
+sed 's/href=/\n/g' index.html |grep "Pita"| sed 's/">/\t/;s/"//' | cut -f 1 | \
+awk '{print "wget -e robots=off -r -p -np -k https://treegenesdb.org"$1,"--no-check-certificate --wait 1"}'| grep -v "index" | sh
+
+mv treegenesdb.org/FTP/Genomes/Pita/v2.01/* .
+rm -r treegenesdb.org/
 rm index.html
