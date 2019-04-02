@@ -57,9 +57,23 @@ mv plantgenie.org/Data/PopGenIE/Populus_tremuloides/v1.1/* .
 rm -r plantgenie.org/
 rm index.html
 
+# potrx
+wget ftp://plantgenie.org/Data/PopGenIE/Populus_tremula_X_Populus_tremuloides/v0.1
+sed 's/href=/\n/g' index.html |grep -E "FASTA|GFF3|BED|Annotation"| sed 's/">/\t/;s/"//' | cut -f 1 | \
+awk '{print "wget -e robots=off -r -p -np -k", $1, "--no-check-certificate --wait 1"}'| sh
 
+mv plantgenie.org/Data/PopGenIE/Populus_tremula_X_Populus_tremuloides/v0.1/* .
+rm -r plantgenie.org/
+rm index.html
 
+# pigla
+wget ftp://plantgenie.org/Data/ConGenIE/Picea_glauca/WS77111/v1.0/
+sed 's/href=/\n/g' index.html |grep -E "FASTA|GFF3|BED|Annotation"| sed 's/">/\t/;s/"//' | cut -f 1 | \
+awk '{print "wget -e robots=off -r -p -np -k", $1, "--no-check-certificate --wait 1"}'| sh
 
+mv plantgenie.org/Data/ConGenIE/Picea_glauca/WS77111/v1.0/* .
+rm -r plantgenie.org/
+rm index.html
 
 
 
