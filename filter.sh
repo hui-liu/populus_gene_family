@@ -1,3 +1,4 @@
+# use gene name because sometimes the protein names are different from the cds name
 # (1) amtri_v1.0
 cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/amtri_v1.0
 python ../../bin/gff2idmap.py Atrichopoda_291_v1.0.gene.gff3.gz --gene_field gene_id --transcript_field transcript_id \
@@ -66,13 +67,44 @@ python ../../bin/LongestPep.py id_mapping.txt Vvinifera_145_Genoscope.12X.protei
 
 # (9) zemay_AGPv3.31
 cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/zemay_AGPv3.31
+python gff2idmap.py Zea_mays.AGPv3.31.gff3 --gene_field gene_id --transcript_field transcript_name \
+--protein_field cds_id --pse_field gene_name|uniq > id_mapping.txt
+python LongestPep.py id_mapping.txt Zea_mays.AGPv3.31.cds.all.fa 3 cds.fa
+python LongestPep.py id_mapping.txt Zea_mays.AGPv3.31.pep.all.fa 4 pep.faa
 
-# artha_araport11
+# (10) potra_v1.1
+# why do the protein sequences contain tRNA
+cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/potra_v1.1
+python gff2idmap.py gff3/Potra01-gene.gff3.gz --gene_field gene_id --transcript_field transcript_id \
+--protein_field transcript_id --pse_field gene_name|uniq > id_mapping.txt
+python ../../bin/LongestPep.py id_mapping.txt fasta/Potra01-CDS.fa.gz 3 cds.fa
+python ../../bin/LongestPep.py id_mapping.txt fasta/Potra01-protein.fa.gz 4 pep.faa
+
+# (11) potrs_v1.1
+cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/potrs_v1.1
+python ../potra_v1.1/gff2idmap.py GFF3/Potrs01b-gene.gff3.gz --gene_field gene_id --transcript_field transcript_id \
+--protein_field transcript_id --pse_field gene_name|uniq > id_mapping.txt
+python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrs01b-CDS.fa.gz 3 cds.fa
+python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrs01b-protein.fa.gz 4 pep.faa
+
+# (12) potrx_v0.1 -- problem
+cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/potrx_v0.1
+python ../potra_v1.1/gff2idmap.py GFF3/Potrx01-gene.gff3.gz --gene_field gene_id --transcript_field transcript_id \
+--protein_field transcript_id --pse_field gene_name|uniq > id_mapping.txt
+python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrs01b-CDS.fa.gz 3 cds.fa
+python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrs01b-protein.fa.gz 4 pep.faa
+
+# (13) traes_tgac_v1
+cd /mnt/crick/data/yellow_horn/temp/populus_gene_family/Data/traes_tgac_v1
+python gff2idmap.py Triticum_aestivum.TGACv1.36.gff3 --gene_field gene_id --transcript_field transcript_name \
+--protein_field transcript_name --pse_field gene_name|uniq > id_mapping.txt
+python ../zemay_AGPv3.31/LongestPep.py id_mapping.txt Triticum_aestivum.TGACv1.cds.all.fa 3 cds.fa
+python ../zemay_AGPv3.31/LongestPep.py id_mapping.txt Triticum_aestivum.TGACv1.pep.all.fa 4 pep.faa
+
+# (14) artha_araport11
 cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/artha_araport11
 python gff2idmap.py Athaliana_447_Araport11.gene.gff3.gz --gene_field gene_id --transcript_field transcript_id \
 --protein_field cds_id --pse_field gene_name|uniq > id_mapping.txt
 sed -i '/AT1G64633.1/d' id_mapping.txt
 python ../../bin/LongestPep.py id_mapping.txt Athaliana_447_Araport11.cds.fa.gz 3 cds.fa
 python ../../bin/LongestPep.py id_mapping.txt Athaliana_447_Araport11.protein.fa.gz 3 pep.faa
-
-
