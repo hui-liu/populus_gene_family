@@ -87,7 +87,7 @@ python ../potra_v1.1/gff2idmap.py GFF3/Potrs01b-gene.gff3.gz --gene_field gene_i
 python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrs01b-CDS.fa.gz 3 cds.fa
 python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrs01b-protein.fa.gz 4 pep.faa
 
-# (12) potrx_v0.1 -- problem
+# (12) potrx_v0.1 -- Incompatible id between gff3 file and cds/protein id
 cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/potrx_v0.1
 python ../potra_v1.1/gff2idmap.py GFF3/Potrx01-gene.gff3.gz --gene_field gene_id --transcript_field transcript_id \
 --protein_field transcript_id --pse_field gene_name|uniq > id_mapping.txt
