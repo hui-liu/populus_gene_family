@@ -60,8 +60,8 @@ python ../../bin/LongestPep.py id_mapping.txt Smoellendorffii_91_v1.0.protein.fa
 
 # (8) vivin_genoscope12x
 cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/vivin_genoscope12x
-python ../../bin/gff2idmap.py Vvinifera_145_Genoscope.12X.gene.gff3.gz --pse_field transcript_name --gene_field transcript_name --transcript_field transcript_name \
---protein_field transcript_name --pse_field transcript_name|uniq > id_mapping.txt
+python gff2idmap.py Vvinifera_145_Genoscope.12X.gene.gff3.gz --gene_field gene_id --transcript_field transcript_name \
+--protein_field transcript_name --pse_field gene_id|uniq > id_mapping.txt
 python ../../bin/LongestPep.py id_mapping.txt Vvinifera_145_Genoscope.12X.cds.fa.gz 3 cds.fa
 python ../../bin/LongestPep.py id_mapping.txt Vvinifera_145_Genoscope.12X.protein.fa.gz 4 pep.faa
 
@@ -104,7 +104,50 @@ python ../zemay_AGPv3.31/LongestPep.py id_mapping.txt Triticum_aestivum.TGACv1.p
 # (14) artha_araport11
 cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/artha_araport11
 python gff2idmap.py Athaliana_447_Araport11.gene.gff3.gz --gene_field gene_id --transcript_field transcript_id \
---protein_field cds_id --pse_field gene_name|uniq > id_mapping.txt
+--protein_field cds_id --pse_field gene_id|uniq > id_mapping.txt
 sed -i '/AT1G64633.1/d' id_mapping.txt
 python ../../bin/LongestPep.py id_mapping.txt Athaliana_447_Araport11.cds.fa.gz 3 cds.fa
 python ../../bin/LongestPep.py id_mapping.txt Athaliana_447_Araport11.protein.fa.gz 3 pep.faa
+
+# (15) pitae_v2.01
+cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/pitae_v2.01
+python ../../bin/gff2idmap.py annotation/Pita.2_01.gff.gz --gene_field gene_id --transcript_field transcript_name \
+--protein_field transcript_name --pse_field gene_name|uniq > id_mapping.txt
+python ../../bin/LongestPep.py id_mapping.txt annotation/Pita.2_01.cds.fa.gz 3 cds.fa
+python ../../bin/LongestPep.py id_mapping.txt annotation/Pita.2_01.cds.fa.gz 4 pep.faa
+
+# (16) pigla_WS77111 (7832 genes)
+
+# (17) chrei_v5.5
+cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/chrei_v5.5
+python ../../bin/gff2idmap.py Creinhardtii_281_v5.5.gene.gff3.gz --gene_field gene_id --transcript_field transcript_id \
+--protein_field transcript_id --pse_field gene_name|uniq > id_mapping.txt
+python ../../bin/LongestPep.py id_mapping.txt Creinhardtii_281_v5.5.cds.fa.gz 3 cds.fa
+python ../../bin/LongestPep.py id_mapping.txt Creinhardtii_281_v5.5.protein.fa.gz 4 pep.faa
+
+# (18) micom_v3.0
+cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/micom_v3.0
+python gff2idmap.py MspRCC299_229_v3.0.gene.gff3 --gene_field gene_name --transcript_field transcript_name \
+--protein_field transcript_name --pse_field gene_name|uniq > id_mapping.txt
+python LongestPep.py id_mapping.txt MspRCC299_229_v3.0.cds.fa 3 cds.fa
+python LongestPep.py id_mapping.txt MspRCC299_229_v3.0.protein.fa 4 pep.faa
+
+
+# (19) psmen_v1.0
+cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/psmen_v1.0
+awk '$3=="gene"' annotation/annotation2.0/Psme.1_0.gtf | \
+awk -v OFS="\t" '{print $9,$9,$9,$9,$1,$4,$5,$7,"None"}' | \
+sed '1i#pse_id\tgene_id\ttranscript_id\tprotein_id\tchr\tstart\tend\tstrand\tdescription' > id_mapping.txt
+
+cp annotation/annotation2.0/Psme.1_0.cds.fa cds.fa
+cp annotation/annotation2.0/Psme.1_0.peptides.fa > pep.faa
+
+# (20) piamb
+cat pila.HQgenes.complete.gff3.gz pila.HQgenes.partial.gff3.gz pila.LQgenes.gff3.gz > pila.genes.gff3.gz
+cat pila.HQgenes.complete.transcripts.fasta.gz pila.HQgenes.partial.transcripts.fasta.gz pila.LQgenes.transcripts.fasta.gz > pila.transcripts.fasta.gz
+cat pila.HQgenes.complete.proteins.fasta.gz pila.HQgenes.partial.proteins.fasta.gz pila.LQgenes.proteins.fasta.gz > pila.proteins.fasta.gz
+
+python ../../bin/gff2idmap.py pila.genes.gff3.gz --gene_field gene_id --transcript_field transcript_id \
+--protein_field transcript_id --pse_field gene_name|uniq > id_mapping.txt
+python ../../bin/LongestPep.py id_mapping.txt pila.transcripts.fasta.gz 3 cds.fa
+python ../../bin/LongestPep.py id_mapping.txt pila.proteins.fasta.gz 4 pep.faa
