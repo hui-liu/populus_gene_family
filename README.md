@@ -1,4 +1,5 @@
 ## Species used for gene family analysis
+```
 Names	Species names	Version	ID	GENE	mRNA	CDS	PEP	Download
 amtri	Amborella trichopoda	v1.0	amtri_v1.0	26846	26846	26846	26846	https://genome.jgi.doe.gov
 eucgr	Eucalyptus grandis	v2.0	eucgr_v2.0	36349	46280	36349	36349	https://genome.jgi.doe.gov
@@ -20,3 +21,4 @@ chrei	Chlamydomonas reinhardtii	v5.5	chrei_v5.5	17741	19526	17741	17741	https://
 micom	Micromonas commoda	v3.0	micom_v3.0	10103	10103	10103	10103	/mnt/crick/PLAZA/original_download
 psmen	Pseudotsuga menziesii	v1.0	psmen_v1.0	46688	46688	46688	46688	https://treegenesdb.org/FTP/Genomes/Psme/v1.0/
 piamb	Pinus lambertiana	v1.0	piamb_v1.0	85053	85053	85053	85053	https://treegenesdb.org/FTP/Genomes/Pila/v1.0/
+```
