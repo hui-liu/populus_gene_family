@@ -122,7 +122,7 @@ zcat annotation/Pita.2_01.peptides.fa.gz | awk '{print $1}' | \
 awk '/^>/ {printf("\n%s\t",$0);next;} {printf("%s",$0);} END {printf("\n");}' | \
 grep -v '^$' | tr "\t" "\n" > pep.faa
 
-# (16) pigla_WS77111 (7832 genes)
+# (16) pigla_WS77111
 
 # (17) chrei_v5.5
 cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/chrei_v5.5
