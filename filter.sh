@@ -87,12 +87,12 @@ python ../potra_v1.1/gff2idmap.py GFF3/Potrs01b-gene.gff3.gz --gene_field gene_i
 python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrs01b-CDS.fa.gz 3 cds.fa
 python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrs01b-protein.fa.gz 4 pep.faa
 
-# (12) potrx_v0.1 -- Incompatible id between gff3 file and cds/protein id
+# (12) potrx_v0.1
 cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/potrx_v0.1
-python ../potra_v1.1/gff2idmap.py GFF3/Potrx01-gene.gff3.gz --gene_field gene_id --transcript_field transcript_id \
+python ../potra_v1.1/gff2idmap.py GFF3/Potrx01-genome.gff3.gz --gene_field gene_id --transcript_field transcript_id \
 --protein_field transcript_id --pse_field gene_name|uniq > id_mapping.txt
-python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrs01b-CDS.fa.gz 3 cds.fa
-python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrs01b-protein.fa.gz 4 pep.faa
+python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrx01_mRNA.fa.gz 3 cds.fa
+python ../../bin/LongestPep.py id_mapping.txt FASTA/Potrx01_protein.fa.gz 4 pep.faa
 
 # (13) traes_tgac_v1
 cd /mnt/crick/data/yellow_horn/temp/populus_gene_family/Data/traes_tgac_v1
@@ -111,16 +111,14 @@ python ../../bin/LongestPep.py id_mapping.txt Athaliana_447_Araport11.protein.fa
 
 # (15) pitae_v2.01
 cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/pitae_v2.01
-zcat annotation/Pita.2_01.gff.gz |grep "gene" |sed 's/ID=//;s/;Name.*//' | \
-awk -v OFS="\t" '{print $9,$9,$9,$9,$1,$4,$5,$7,"None"}' | \
+zcat annotation/Pita.2_01.gff.gz |grep "gene" |sed 's/ID=//;s/;Name=/\t/' | \
+awk '{if(NF==10){print $0}else{print $0"\t"$9}}'| \
+awk -v OFS="\t" '{print $9,$9,$10,$10,$1,$4,$5,$7,"None"}' | \
 sed '1i#pse_id\tgene_id\ttranscript_id\tprotein_id\tchr\tstart\tend\tstrand\tdescription' > id_mapping.txt
 
-zcat annotation/Pita.2_01.cds.fa.gz | awk '{print $1}' | \
-awk '/^>/ {printf("\n%s\t",$0);next;} {printf("%s",$0);} END {printf("\n");}' | \
-grep -v '^$' | tr "\t" "\n" > cds.fa
-zcat annotation/Pita.2_01.peptides.fa.gz | awk '{print $1}' | \
-awk '/^>/ {printf("\n%s\t",$0);next;} {printf("%s",$0);} END {printf("\n");}' | \
-grep -v '^$' | tr "\t" "\n" > pep.faa
+python ../../bin/LongestPep.py id_mapping.txt annotation/Pita.2_01.cds.fa.gz 3 cds.fa
+python ../../bin/LongestPep.py id_mapping.txt annotation/Pita.2_01.peptides.fa.gz 4 pep.faa
+
 
 # (16) pigla_WS77111
 
