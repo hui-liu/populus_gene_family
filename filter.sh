@@ -111,10 +111,16 @@ python ../../bin/LongestPep.py id_mapping.txt Athaliana_447_Araport11.protein.fa
 
 # (15) pitae_v2.01
 cd /pfs/nobackup/home/c/chanaka/Populus/populus_gene_family/Data/pitae_v2.01
-python ../../bin/gff2idmap.py annotation/Pita.2_01.gff.gz --gene_field gene_id --transcript_field transcript_name \
---protein_field transcript_name --pse_field gene_name|uniq > id_mapping.txt
-python ../../bin/LongestPep.py id_mapping.txt annotation/Pita.2_01.cds.fa.gz 3 cds.fa
-python ../../bin/LongestPep.py id_mapping.txt annotation/Pita.2_01.cds.fa.gz 4 pep.faa
+zcat annotation/Pita.2_01.gff.gz |grep "gene" |sed 's/ID=//;s/;Name.*//' | \
+awk -v OFS="\t" '{print $9,$9,$9,$9,$1,$4,$5,$7,"None"}' | \
+sed '1i#pse_id\tgene_id\ttranscript_id\tprotein_id\tchr\tstart\tend\tstrand\tdescription' > id_mapping.txt
+
+zcat annotation/Pita.2_01.cds.fa.gz | awk '{print $1}' | \
+awk '/^>/ {printf("\n%s\t",$0);next;} {printf("%s",$0);} END {printf("\n");}' | \
+grep -v '^$' | tr "\t" "\n" > cds.fa
+zcat annotation/Pita.2_01.peptides.fa.gz | awk '{print $1}' | \
+awk '/^>/ {printf("\n%s\t",$0);next;} {printf("%s",$0);} END {printf("\n");}' | \
+grep -v '^$' | tr "\t" "\n" > pep.faa
 
 # (16) pigla_WS77111 (7832 genes)
 
