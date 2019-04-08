@@ -16,7 +16,7 @@ potrx	Populus tremula X populus tremuloides	v0.1	potrx_v0.1					ftp://plantgenie
 traes	Triticum aestivum	tgac_v1	traes_tgac_v1	103577	154140	103577	103577	/mnt/crick/PLAZA/original_download/triticum_aestivum
 artha	Arabidopsis thaliana	araport11	artha_araport11	27654	48455	27654	27654	https://genome.jgi.doe.gov
 pitae	Pinus taeda	v2.01	pitae_v2.01	36732	36732	36732	36732	https://treegenesdb.org/FTP/Genomes/Pita/v2.01/
-pigla	Picea glauca	WS77111	pigla_WS77111	7832				ftp://plantgenie.org/Data/ConGenIE/Picea_glauca/WS77111/v1.0/
+pigla	Picea glauca	WS77111	pigla_WS77111	  				ftp://plantgenie.org/Data/ConGenIE/Picea_glauca/WS77111/v1.0/
 chrei	Chlamydomonas reinhardtii	v5.5	chrei_v5.5	17741	19526	17741	17741	https://genome.jgi.doe.gov
 micom	Micromonas commoda	v3.0	micom_v3.0	10103	10103	10103	10103	/mnt/crick/PLAZA/original_download
 psmen	Pseudotsuga menziesii	v1.0	psmen_v1.0	46688	46688	46688	46688	https://treegenesdb.org/FTP/Genomes/Psme/v1.0/
