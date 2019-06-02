@@ -9,5 +9,3 @@ python bin/convert_fasta2phylip.py  singlecopy_aligned.trimal.faa singlecopy_ali
 
 # build phylogenetic tree using iqtree
 /home/zshanshan/bin/iqtree-1.6.7-Linux/bin/iqtree -s singlecopy_aligned.trimal.phy -m MF -nt 20
-# bootstrap
-/home/zshanshan/bin/iqtree-1.6.7-Linux/bin/iqtree -s singlecopy_aligned.trimal.phy -m JTT+F+I+G4 -bb 1000 -alrt 1000 -nt 20 -redo
